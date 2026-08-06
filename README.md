@@ -1,9 +1,7 @@
 # 🎡 I'm Just a Girl — the IUT Wheel of Names
 
-**👉 Play it live: https://imjustagirl.onrender.com/**
+**👉 Live @ https://imjustagirl.onrender.com/**
 
-Okay so. Everyone at IUT has a secret nickname waiting for them and they
-just don't know it yet. This app fixes that.
 
 Here's the whole vibe:
 
@@ -19,7 +17,7 @@ Here's the whole vibe:
 That's it. That's the app. Spin fair, spin square, no crying if you get
 "Chaotic Library Gremlin."
 
-Pick a theme while you're at it — six flavors, all vibes: default,
+Pick a theme while you're at it — six themes, all vibes: default,
 black-purple, white-pink, blue-black, lilac, cream. It even skins the wheel
 itself now, no more mismatched neon-pink slices on your moody black-purple
 theme.
@@ -37,7 +35,7 @@ theme.
   password — it only ever sees a Firebase ID token, verified server-side via
   the Firebase Admin SDK on every single request.
 - **Domain gate:** only `@iut-dhaka.edu` emails, checked in the browser
-  _and_ independently re-checked on the server from the decoded token — not
+  *and* independently re-checked on the server from the decoded token — not
   just whatever the client claims.
 - **Database:** MongoDB (Atlas) — users, wheels/nominations, spin history,
   and locked-in final picks.
@@ -74,7 +72,7 @@ iut_wheel_of_names/
    object into `static/js/firebase-config.js`. These values are public by
    design; it's fine that they ship to the browser.
 3. **Project settings → Service accounts → Generate new private key**. This
-   file _is_ secret. Either:
+   file *is* secret. Either:
    - save it as `firebase-service-account.json` next to `app.py` and set
      `FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-service-account.json`, or
    - paste its full contents as one line into `FIREBASE_SERVICE_ACCOUNT_JSON`.
@@ -89,10 +87,10 @@ MONGODB_URI=mongodb+srv://<db_user>:<db_password>@imjustagirl.tvwexnq.mongodb.ne
 MONGO_DB_NAME=iut_wheel_of_names
 ```
 
-> **Security note:** rotate your Atlas database password (Atlas → Database
-> Access → edit user) before going live if it was ever shared in plain text
-> anywhere. New password goes only in your local `.env` — never in a file
-> you upload or commit.
+> **Security note:** treat your Atlas password like any other secret — never
+> commit it, paste it into a chat, or put it anywhere but your local `.env`
+> and Render's environment variables. Rotate it periodically (Atlas →
+> Database Access → edit user).
 
 ### Run it locally
 
@@ -116,7 +114,7 @@ Open **http://localhost:5000**.
    enforced for real on the server from the decoded token + `email_verified`).
 2. On first sign-in, the frontend calls `POST /api/auth/sync`, which creates
    the Mongo `users` doc (`uid`, `email`, `display_name`, `theme`).
-3. Any signed-in user can nominate any _other_ registered user a nickname —
+3. Any signed-in user can nominate any *other* registered user a nickname —
    never themselves — rejected both client- and server-side.
 4. Each user has one personal wheel made of the nicknames others nominated
    for them (`GET /api/my-wheel`).
@@ -168,7 +166,7 @@ Open **http://localhost:5000**.
   creator.
 - A wheel itself can only be deleted by its creator.
 - Weight (1–20) controls slice size.
-- You can only lock in one of _your own_ past spin results.
+- You can only lock in one of *your own* past spin results.
 - Everyone can see everyone's locked-in final nickname; only you can see
   your own full spin history.
 
