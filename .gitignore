@@ -1,0 +1,30 @@
+# --- Secrets: never commit these ---
+.env
+.env.*
+!.env.example
+
+# Firebase Admin SDK service-account keys (private, server-side only —
+# NOT the same as firebase-config.js, which is public and fine to commit)
+firebase-service-account.json
+imjustagirl-firebase-adminsdk-fbsvc-3407071178.json
+*firebase-adminsdk*.json
+serviceAccountKey*.json
+
+# --- Python virtual environments ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Python cruft ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

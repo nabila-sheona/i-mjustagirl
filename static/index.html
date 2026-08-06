@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>I'm Just a Girl — Wheel of Names</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand"><span class="dot"></span> I'm Just a Girl</div>
+        <div class="spacer"></div>
+
+        <!-- NEW: tab nav, only shown once logged in -->
+        <nav id="tab-nav" class="tab-nav hidden">
+            <button type="button" class="tab-btn active" data-tab="detail">My Wheel</button>
+            <button type="button" class="tab-btn" data-tab="final">Final Nicknames</button>
+        </nav>
+
+        <label class="theme-swatch" id="theme-picker-wrap">
+            <span class="field-label" style="margin:0">Theme</span>
+            <select id="theme-select">
+                <option value="default">Default</option>
+                <option value="black-purple">Black &amp; Purple</option>
+                <option value="white-pink">White &amp; Pink</option>
+                <option value="blue-black">Blue &amp; Black</option>
+                <option value="lilac">Lilac</option>
+                <option value="cream">Cream</option>
+            </select>
+        </label>
+
+        <div id="user-chip" class="hidden" style="font-size:.9rem;color:var(--text-muted)"></div>
+        <button id="logout-btn" class="btn btn-ghost btn-sm hidden">Sign out</button>
+    </header>
+
+    <div class="container">
+
+        <!-- NEW: shown by default, hidden as soon as auth state resolves either way -->
+        <div id="loading-view" class="auth-shell">
+            <div class="card" style="text-align:center">
+                <p style="color:var(--text-muted);margin:0">Loading…</p>
+            </div>
+        </div>
+
+        <!-- ===================== AUTH VIEW ===================== -->
+        <div id="auth-view" class="auth-shell hidden">
+            <div class="card" style="text-align:center">
+                <p style="color:var(--text-muted);font-size:.95rem;margin-top:0">
+                    Sign in with your university Google account (<strong>@iut-dhaka.edu</strong> only).
+                </p>
+                <div id="auth-msg"></div>
+                <button id="google-signin-btn" class="btn" style="display:inline-flex;align-items:center;gap:8px">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"
+                        style="width:20px;height:20px"> Sign in with Google
+                </button>
+            </div>
+        </div>
+
+        <!-- ============ VERIFY EMAIL VIEW ============ -->
+        <div id="verify-view" class="auth-shell hidden">
+            <div class="card" style="text-align:center">
+                <h2>Check your inbox</h2>
+                <p style="color:var(--text-muted)">
+                    We sent a verification link to <strong id="verify-email"></strong>.
+                    Click it, then come back and press the button below.
+                </p>
+                <button id="verify-refresh-btn" class="btn">I've verified — continue</button>
+                <button id="verify-resend-btn" class="btn btn-ghost btn-sm">Resend email</button>
+            </div>
+        </div>
+
+        <!-- ===================== APP: MY WHEEL ===================== -->
+        <div id="detail-view" class="hidden">
+
+            <div class="wheel-detail-layout">
+
+                <!-- LEFT: MY WHEEL -->
+                <div class="wheel-wrap card">
+                    <h2 id="wheel-title" style="margin:0">My Nickname Wheel</h2>
+
+                    <div class="pointer"></div>
+
+                    <canvas id="wheel-canvas" width="480" height="480"></canvas>
+
+                    <div id="winner-banner" class="winner-banner hidden"></div>
+
+                    <button id="spin-btn" class="btn">Spin</button>
+
+                    <!-- NEW: spins remaining -->
+                    <p id="spins-remaining" style="color:var(--text-muted);font-size:.9rem;margin:6px 0 0"></p>
+
+                    <p style="color:var(--text-muted);font-size:.9rem;margin-top:12px">
+                        These nicknames were nominated by other users for you.
+                    </p>
+
+                    <!-- NEW: spin history + lock-in -->
+                    <div class="card" id="my-spins-card" style="margin-top:16px;text-align:left;width:100%">
+                        <h3 style="margin-top:0">My Spin Results (<span id="spins-used-count">0</span>/5)</h3>
+                        <p style="color:var(--text-muted);font-size:.85rem">
+                            Every spin is saved below. Pick your favorite and lock it in — that's what
+                            everyone will see on the Final Nicknames tab.
+                        </p>
+                        <div id="spins-list"></div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: NOMINATE SOMEONE ELSE -->
+                <div class="card">
+                    <h3 style="margin-top:0">Nominate someone</h3>
+
+                    <p style="color:var(--text-muted);font-size:.85rem">
+                        Pick another registered user and give them a nickname.
+                        You cannot nominate yourself.
+                    </p>
+
+                    <label class="field-label">Choose user</label>
+                    <select id="nominee-select" style="width:100%;margin-bottom:10px"></select>
+
+                    <label class="field-label">Nickname</label>
+                    <input type="text" id="nominee-nickname" placeholder="e.g. Secret Keeper"
+                        style="width:100%;margin-bottom:12px">
+
+                    <button id="add-entry-btn" class="btn" style="width:100%">
+                        Send nickname
+                    </button>
+
+                    <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)">
+
+                    <h3>Nicknames on my wheel (<span id="entry-count">0</span>)</h3>
+                    <div id="entries-list"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ===================== NEW: FINAL NICKNAMES ===================== -->
+        <div id="final-view" class="hidden">
+            <div class="card">
+                <h2 style="margin-top:0">Final Nicknames</h2>
+                <p style="color:var(--text-muted);font-size:.9rem">
+                    Everyone's locked-in final nickname, once they've chosen one from their spins.
+                </p>
+                <div id="final-list"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="foot">I'm Just a Girl — spin fair, spin square. Names, not free text — nominated by real registered
+        users.</footer>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+
+</html>

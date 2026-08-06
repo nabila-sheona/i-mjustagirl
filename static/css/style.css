@@ -1,0 +1,374 @@
+/* ---------------------------------------------------------------------
+   Theme tokens. Switching data-theme on <html> re-skins the whole app.
+--------------------------------------------------------------------- */
+:root,
+[data-theme="default"] {
+  --bg: #f4f5f9;
+  --surface: #ffffff;
+  --text: #1c1c26;
+  --text-muted: #6b6b7b;
+  --accent: #4361ee;
+  --accent-2: #7209b7;
+  --border: #e2e2ec;
+  --danger: #e5383b;
+  --success: #2d9d5f;
+}
+
+[data-theme="black-purple"] {
+  --bg: #14101c;
+  --surface: #1f1830;
+  --text: #f1eaff;
+  --text-muted: #b9a6e0;
+  --accent: #a855f7;
+  --accent-2: #6d28d9;
+  --border: #322650;
+  --danger: #f87171;
+  --success: #4ade80;
+}
+
+[data-theme="white-pink"] {
+  --bg: #fff5f8;
+  --surface: #ffffff;
+  --text: #3a1c28;
+  --text-muted: #9c6b7d;
+  --accent: #ec4899;
+  --accent-2: #f472b6;
+  --border: #ffd6e6;
+  --danger: #e5383b;
+  --success: #2d9d5f;
+}
+
+[data-theme="blue-black"] {
+  --bg: #0b0e14;
+  --surface: #131722;
+  --text: #e6ecf5;
+  --text-muted: #8b96ab;
+  --accent: #3b82f6;
+  --accent-2: #1d4ed8;
+  --border: #232838;
+  --danger: #f87171;
+  --success: #4ade80;
+}
+
+[data-theme="lilac"] {
+  --bg: #f3effa;
+  --surface: #ffffff;
+  --text: #2f2438;
+  --text-muted: #7d6f92;
+  --accent: #9370db;
+  --accent-2: #c9a8f5;
+  --border: #e4d8f7;
+  --danger: #d1495b;
+  --success: #2d9d5f;
+}
+
+[data-theme="cream"] {
+  --bg: #faf3e7;
+  --surface: #fffdf8;
+  --text: #3d3226;
+  --text-muted: #8a7a63;
+  --accent: #c98a4b;
+  --accent-2: #e4b87c;
+  --border: #ecdfc8;
+  --danger: #c1443c;
+  --success: #4c8c5e;
+}
+
+/* --------------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Quicksand",
+    "Segoe UI",
+    Roboto,
+    -apple-system,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+a {
+  color: var(--accent);
+}
+
+header.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+header.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+header.topbar .brand .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.spacer {
+  flex: 1;
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-weight: 600;
+}
+.btn:hover {
+  filter: brightness(1.06);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-danger {
+  background: var(--danger);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 6%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.auth-shell {
+  max-width: 420px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-shell form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.msg {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+.msg.error {
+  background: color-mix(in srgb, var(--danger) 15%, transparent);
+  color: var(--danger);
+}
+.msg.success {
+  background: color-mix(in srgb, var(--success) 15%, transparent);
+  color: var(--success);
+}
+
+.wheel-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+@media (max-width: 800px) {
+  .wheel-detail-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wheel-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+canvas#wheel-canvas {
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 22px solid var(--accent);
+  margin-bottom: -6px;
+}
+
+.winner-banner {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.entry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.entry-row .who small {
+  color: var(--text-muted);
+  display: block;
+}
+
+.theme-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.swatch-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
+
+footer.foot {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------
+   NEW: tab nav (My Wheel / Final Nicknames)
+--------------------------------------------------------------------- */
+.tab-nav {
+  display: flex;
+  gap: 8px;
+}
+.tab-btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-weight: 600;
+}
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ---------------------------------------------------------------------
+   NEW: spin history + lock-in rows
+--------------------------------------------------------------------- */
+.spin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.spin-row.locked {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.spin-row .lock-btn {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+   NEW: final nicknames board
+--------------------------------------------------------------------- */
+.final-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.final-row .final-nick {
+  font-weight: 700;
+  color: var(--accent);
+}
